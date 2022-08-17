@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
+  HttpStatus,
   Param,
   Post,
   Put,
@@ -10,6 +12,7 @@ import {
 import { CreateCatDto, UpdateCatDto } from './dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
+import { ForbiddenException } from '../common/exceptions/forbidden.exception';
 
 @Controller('cats')
 export class CatsController {
@@ -28,6 +31,7 @@ export class CatsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
+    throw new ForbiddenException();
     return `This action returns a #${id} cat`;
   }
 

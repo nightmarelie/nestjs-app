@@ -3,12 +3,15 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   Post,
   Put,
   Query,
+  Res,
 } from '@nestjs/common';
 import { CreateCatDto, UpdateCatDto, ListAllEntities } from './dto';
+import { Response } from 'express';
 
 @Controller('cats')
 export class CatsController {
@@ -18,8 +21,8 @@ export class CatsController {
   }
 
   @Get()
-  findAll(@Query() query: ListAllEntities) {
-    return `This action returns all cats (limit: ${query.limit} items)`;
+  findAll(@Query() query: ListAllEntities, @Res() res: Response) {
+    res.status(HttpStatus.CREATED).json([]);
   }
 
   @Get(':id')

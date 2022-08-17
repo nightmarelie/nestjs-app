@@ -8,11 +8,13 @@ import {
   Param,
   Post,
   Put,
+  UseFilters,
 } from '@nestjs/common';
 import { CreateCatDto, UpdateCatDto } from './dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
 import { ForbiddenException } from '../common/exceptions/forbidden.exception';
+import { HttpExceptionFilter } from '../common/exceptions/filters/http-exception.filter';
 
 @Controller('cats')
 export class CatsController {
@@ -30,6 +32,7 @@ export class CatsController {
   }
 
   @Get(':id')
+  @UseFilters(HttpExceptionFilter)
   findOne(@Param('id') id: string) {
     throw new ForbiddenException();
     return `This action returns a #${id} cat`;

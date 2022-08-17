@@ -21,8 +21,12 @@ export class CatsController {
   }
 
   @Get()
-  findAll(@Query() query: ListAllEntities, @Res() res: Response) {
-    res.status(HttpStatus.CREATED).json([]);
+  findAll(
+    @Query() query: ListAllEntities,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    res.status(HttpStatus.CREATED);
+    return [1, 2, 3];
   }
 
   @Get(':id')

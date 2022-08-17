@@ -3,30 +3,27 @@ import {
   Controller,
   Delete,
   Get,
-  HttpStatus,
   Param,
   Post,
   Put,
-  Query,
-  Res,
 } from '@nestjs/common';
 import { CreateCatDto, UpdateCatDto, ListAllEntities } from './dto';
 import { Response } from 'express';
+import { CatsService } from './cats.service';
+import { Cat } from './interfaces/cat.interface';
 
 @Controller('cats')
 export class CatsController {
+  constructor(private catsService: CatsService) {}
+
   @Post()
   create(@Body() createCatDto: CreateCatDto) {
-    return 'This action adds a new cat';
+    return this.catsService.create(createCatDto);
   }
 
   @Get()
-  findAll(
-    @Query() query: ListAllEntities,
-    @Res({ passthrough: true }) res: Response,
-  ) {
-    res.status(HttpStatus.CREATED);
-    return [1, 2, 3];
+  findAll(): Promise<Cat[]> {
+    return this.catsService.findAll();
   }
 
   @Get(':id')

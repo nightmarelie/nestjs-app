@@ -23,6 +23,7 @@ export class CatsController {
 
   @Get()
   findAll(): Promise<Cat[]> {
+    this.catsService.create({ name: 'test', age: 10, breed: 'none' });
     return this.catsService.findAll();
   }
 
